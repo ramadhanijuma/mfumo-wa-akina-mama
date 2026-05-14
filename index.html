@@ -1,444 +1,1020 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mfumo wa Madrasa | Usajili, Matokeo, Malipo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #eef5ea;
-            min-height: 100vh;
-        }
-        /* Login */
-        .login-container {
-            max-width: 400px;
-            margin: 80px auto;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
-            padding: 2rem;
-        }
-        .login-container h2 {
-            text-align: center;
-            color: #1e5a3e;
-            margin-bottom: 1.5rem;
-        }
-        .input-group {
-            margin-bottom: 1rem;
-        }
-        .input-group label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #2c5a3e;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1.5px solid #d0e2d4;
-            border-radius: 16px;
-            font-size: 1rem;
-        }
-        button {
-            background: #1e5a3e;
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            width: 100%;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        button:hover { background: #0e3d28; }
-        /* Dashboard */
-        .dashboard {
-            display: none;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-        .top-bar {
-            background: white;
-            border-radius: 24px;
-            padding: 1rem 1.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-        .logo h1 { font-size: 1.3rem; color: #1e5a3e; }
-        .logout-btn {
-            background: #c0392b;
-            width: auto;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-        }
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            background: white;
-            padding: 0.5rem;
-            border-radius: 60px;
-        }
-        .tab-btn {
-            background: transparent;
-            color: #2c5a3e;
-            border-radius: 40px;
-            padding: 0.6rem 1.2rem;
-            width: auto;
-            font-weight: 500;
-        }
-        .tab-btn.active {
-            background: #1e5a3e;
-            color: white;
-        }
-        .tab-pane {
-            display: none;
-            background: white;
-            border-radius: 28px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        .tab-pane.active { display: block; }
-        .form-card {
-            background: #fafef8;
-            border-radius: 20px;
-            padding: 1.2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #cbe5da;
-        }
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .form-group {
-            flex: 1;
-            min-width: 170px;
-        }
-        .form-group label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #4b6e5b;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 0.6rem;
-            border: 1px solid #cde2d4;
-            border-radius: 14px;
-            font-size: 0.9rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow-x: auto;
-            display: block;
-        }
-        th, td {
-            border: 1px solid #e2ede6;
-            padding: 0.6rem;
-            text-align: left;
-            font-size: 0.8rem;
-        }
-        th { background: #eef6f0; }
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e5a3e;
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            z-index: 2000;
-            opacity: 0;
-            transition: 0.2s;
-            pointer-events: none;
-        }
-        .toast.show { opacity: 1; }
-        @media (max-width: 700px) {
-            .tabs { flex-wrap: wrap; border-radius: 24px; }
-            .tab-btn { flex: 1; text-align: center; }
-            .dashboard { padding: 0.8rem; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mfumo wa Madrasa Taqwa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Variables ─────────────────────────────────────────── */
+    :root {
+      --emerald:   #1a5c3e;
+      --emerald-d: #0f3d29;
+      --emerald-l: #2e7d52;
+      --gold:      #c8972a;
+      --gold-l:    #f0c040;
+      --cream:     #faf7f2;
+      --surface:   #ffffff;
+      --border:    #d6e8de;
+      --text:      #1a2e24;
+      --muted:     #6b8f7a;
+      --danger:    #b83232;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+      --shadow-md: 0 8px 28px rgba(0,0,0,.10);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,.15);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --font-display: 'Amiri', serif;
+      --font-body:    'Cairo', sans-serif;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Geometric Background ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 70% 60% at 10% 20%, rgba(26,92,62,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 90% 80%, rgba(200,151,42,.06) 0%, transparent 55%),
+        var(--cream);
+    }
+
+    /* ─── Login Screen ─────────────────────────────────────── */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .login-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+      animation: slideUp .5s ease both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .login-header {
+      background: linear-gradient(135deg, var(--emerald-d), var(--emerald-l));
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .login-icon {
+      font-size: 3rem;
+      margin-bottom: .5rem;
+      display: block;
+    }
+    .login-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: #fff;
+      font-weight: 700;
+    }
+    .login-subtitle {
+      font-size: .85rem;
+      color: rgba(255,255,255,.7);
+      margin-top: .3rem;
+      letter-spacing: .05em;
+    }
+    .login-body {
+      padding: 2rem;
+    }
+    .field {
+      margin-bottom: 1.2rem;
+    }
+    .field label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .field input:focus, .field select:focus {
+      border-color: var(--emerald-l);
+      box-shadow: 0 0 0 3px rgba(26,92,62,.12);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      border: none;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-l));
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(26,92,62,.3);
+      width: 100%;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(26,92,62,.4);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .login-hint {
+      text-align: center;
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    /* ─── Dashboard Layout ─────────────────────────────────── */
+    #dashboard { display: none; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: .9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    .brand-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--emerald-d), var(--emerald-l));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--emerald-d);
+      font-weight: 700;
+    }
+    .brand-sub {
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .btn-logout {
+      background: rgba(184,50,50,.1);
+      color: var(--danger);
+      padding: .5rem 1.1rem;
+      font-size: .82rem;
+    }
+    .btn-logout:hover { background: var(--danger); color: #fff; }
+
+    /* ─── Stats Bar ────────────────────────────────────────── */
+    .stats-bar {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      overflow-x: auto;
+    }
+    .stat-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.4rem;
+      min-width: 140px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      flex: 1;
+    }
+    .stat-label {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+    }
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--emerald);
+      line-height: 1.1;
+      margin-top: .2rem;
+    }
+    .stat-icon { font-size: 1.3rem; margin-bottom: .2rem; }
+
+    /* ─── Tabs ─────────────────────────────────────────────── */
+    .main-content { padding: 0 1.5rem 2rem; }
+    .tabs-nav {
+      display: flex;
+      gap: .4rem;
+      background: var(--surface);
+      border-radius: 100px;
+      padding: .4rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: .55rem 1rem;
+      border-radius: 100px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-l));
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(26,92,62,.3);
+    }
+    .tab-btn:hover:not(.active) { color: var(--emerald); background: rgba(26,92,62,.06); }
+    .tab-pane { display: none; animation: fadeIn .3s ease; }
+    .tab-pane.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Section Titles ───────────────────────────────────── */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--emerald-d);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 1.5rem;
+      border-radius: 2px;
+    }
+
+    /* ─── Form Card ────────────────────────────────────────── */
+    .form-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .form-card-title {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: .7rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .9rem;
+      margin-bottom: 1rem;
+    }
+    .btn-save {
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-l));
+      color: #fff;
+      padding: .65rem 1.8rem;
+      box-shadow: 0 3px 12px rgba(26,92,62,.25);
+    }
+    .btn-save:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(26,92,62,.35); }
+    .btn-save:active { transform: translateY(0); }
+
+    /* ─── Data Table ───────────────────────────────────────── */
+    .table-wrapper {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .table-header {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .table-title {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+    }
+    .table-count {
+      font-size: .75rem;
+      background: rgba(26,92,62,.1);
+      color: var(--emerald);
+      padding: .2rem .7rem;
+      border-radius: 100px;
+      font-weight: 700;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .data-table th {
+      background: #f5faf7;
+      padding: .7rem 1rem;
+      text-align: left;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: .7rem 1rem;
+      border-bottom: 1px solid #f0f5f2;
+      color: var(--text);
+    }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: #f8fcfa; }
+    .badge {
+      display: inline-block;
+      padding: .15rem .7rem;
+      border-radius: 100px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .badge-active   { background: #e1f5ea; color: #1a7a3f; }
+    .badge-inactive { background: #fce8e8; color: #b83232; }
+    .grade-a { color: #1a7a3f; font-weight: 700; }
+    .grade-b { color: #2e6fa3; font-weight: 700; }
+    .grade-c { color: #c88500; font-weight: 700; }
+    .grade-d { color: #b83232; font-weight: 700; }
+
+    /* ─── Empty State ──────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .empty-state .emoji { font-size: 2.5rem; margin-bottom: .7rem; }
+    .empty-state p { font-size: .85rem; }
+
+    /* ─── Toast Notification ───────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--emerald-d);
+      color: #fff;
+      padding: .75rem 1.6rem;
+      border-radius: 100px;
+      font-size: .85rem;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast.error { background: var(--danger); }
+
+    /* ─── Loading Spinner ──────────────────────────────────── */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .topbar { padding: .8rem 1rem; }
+      .stats-bar { padding: .8rem 1rem; gap: .7rem; }
+      .stat-card { min-width: 110px; padding: .8rem 1rem; }
+      .stat-value { font-size: 1.4rem; }
+      .main-content { padding: 0 1rem 2rem; }
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .brand-sub { display: none; }
+    }
+    @media (max-width: 400px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="login-container" id="loginContainer">
-    <h2>📚 Mfumo wa Madrasa</h2>
-    <div class="input-group"><label>Jina la mtumiaji</label><input type="text" id="username" placeholder="admin" autocomplete="off"></div>
-    <div class="input-group"><label>Nenosiri</label><input type="password" id="password" placeholder="••••••"></div>
-    <button id="loginBtn">Ingia</button>
-    <p style="font-size:0.7rem; text-align:center; margin-top:1rem;">Default: admin / admin123</p>
+<!-- ═══════════════════════════ LOGIN ═══════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-header">
+      <span class="login-icon">🕌</span>
+      <div class="login-title">Madrasa Taqwa</div>
+      <div class="login-subtitle">Mfumo wa Usimamizi</div>
+    </div>
+    <div class="login-body">
+      <div class="field">
+        <label>Jina la Mtumiaji</label>
+        <input type="text" id="username" placeholder="admin" autocomplete="username" />
+      </div>
+      <div class="field">
+        <label>Nenosiri</label>
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn btn-primary" id="loginBtn">
+        <span id="loginLabel">Ingia</span>
+        <span class="spinner" id="loginSpinner"></span>
+      </button>
+      <p class="login-hint">Akili ya kawaida: admin / admin123</p>
+    </div>
+  </div>
 </div>
 
-<div class="dashboard" id="dashboard">
-    <div class="top-bar"><div class="logo"><h1>📖 Madrasa Taqwa</h1></div><button class="logout-btn" id="logoutBtn">Toka</button></div>
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="students">👨‍🎓 Wanafunzi</button>
-        <button class="tab-btn" data-tab="results">📊 Matokeo</button>
-        <button class="tab-btn" data-tab="teachers">👩‍🏫 Walimu</button>
-        <button class="tab-btn" data-tab="schedule">🗓️ Ratiba</button>
-        <button class="tab-btn" data-tab="payments">💰 Malipo</button>
+<!-- ═══════════════════════════ DASHBOARD ═══════════════════════════ -->
+<div id="dashboard">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-icon">📖</div>
+      <div>
+        <div class="brand-name">Madrasa Taqwa</div>
+        <div class="brand-sub">Mfumo wa Usimamizi</div>
+      </div>
+    </div>
+    <button class="btn btn-logout" id="logoutBtn">✕ Toka</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-icon">👨‍🎓</div>
+      <div class="stat-label">Wanafunzi</div>
+      <div class="stat-value" id="statStudents">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👩‍🏫</div>
+      <div class="stat-label">Walimu</div>
+      <div class="stat-value" id="statTeachers">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-label">Malipo Leo</div>
+      <div class="stat-value" id="statPayments">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-label">Matokeo</div>
+      <div class="stat-value" id="statResults">—</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main-content">
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" data-tab="students">👨‍🎓 Wanafunzi</button>
+      <button class="tab-btn" data-tab="results">📊 Matokeo</button>
+      <button class="tab-btn" data-tab="teachers">👩‍🏫 Walimu</button>
+      <button class="tab-btn" data-tab="schedule">🗓️ Ratiba</button>
+      <button class="tab-btn" data-tab="payments">💰 Malipo</button>
     </div>
 
-    <!-- Tab: Wanafunzi -->
+    <!-- ── Wanafunzi ──────────────────────── -->
     <div class="tab-pane active" id="studentsPane">
-        <div class="form-card"><h3>➕ Msajili Mwanafunzi</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Jina kamili</label><input type="text" id="studentName" placeholder="Jina la mwanafunzi"></div>
-                <div class="form-group"><label>Darasa</label><input type="text" id="studentClass" placeholder="Darasa (e.g. 3A)"></div>
-                <div class="form-group"><label>Jina la mzazi</label><input type="text" id="parentName"></div>
-                <div class="form-group"><label>Simu ya mzazi</label><input type="text" id="parentPhone"></div>
-                <div class="form-group"><label>Anwani</label><input type="text" id="studentAddress"></div>
-            </div>
-            <button id="addStudentBtn">Hifadhi Mwanafunzi</button>
+      <div class="section-title">👨‍🎓 Sajili Mwanafunzi Mpya</div>
+      <div class="section-divider"></div>
+      <div class="form-card">
+        <div class="form-card-title">✏️ Fomu ya Usajili</div>
+        <div class="form-grid">
+          <div class="field"><label>Jina Kamili *</label><input type="text" id="studentName" placeholder="Mf. Ahmad Hassan" /></div>
+          <div class="field"><label>Darasa</label><input type="text" id="studentClass" placeholder="Mf. Darasa la 3" /></div>
+          <div class="field"><label>Jina la Mzazi</label><input type="text" id="parentName" placeholder="Mf. Bwana Hassan" /></div>
+          <div class="field"><label>Simu ya Mzazi</label><input type="tel" id="parentPhone" placeholder="+255 7XX XXX XXX" /></div>
+          <div class="field"><label>Anwani</label><input type="text" id="studentAddress" placeholder="Mf. Kariakoo, DSM" /></div>
         </div>
-        <h3>📋 Orodha ya Wanafunzi</h3>
-        <div style="overflow-x:auto"><table id="studentsTable"><thead><tr><th>ID</th><th>Jina</th><th>Darasa</th><th>Mzazi</th><th>Simu</th><th>Hali</th></tr></thead><tbody></tbody></table></div>
+        <button class="btn btn-save" id="addStudentBtn">💾 Hifadhi Mwanafunzi</button>
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-header">
+          <span class="table-title">📋 Orodha ya Wanafunzi</span>
+          <span class="table-count" id="studentsCount">0</span>
+        </div>
+        <table class="data-table" id="studentsTable">
+          <thead><tr>
+            <th>ID</th><th>Jina</th><th>Darasa</th><th>Mzazi</th><th>Simu</th><th>Hali</th>
+          </tr></thead>
+          <tbody id="studentsBody">
+            <tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna wanafunzi bado</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Tab: Matokeo -->
+    <!-- ── Matokeo ──────────────────────────── -->
     <div class="tab-pane" id="resultsPane">
-        <div class="form-card"><h3>➕ Ingiza Alama za Mwanafunzi</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Mwanafunzi (ID)</label><input type="number" id="resultStudentId" placeholder="ID ya mwanafunzi"></div>
-                <div class="form-group"><label>Jina la mwanafunzi</label><input type="text" id="resultStudentName" placeholder="Jina"></div>
-                <div class="form-group"><label>Darasa</label><input type="text" id="resultClass"></div>
-                <div class="form-group"><label>Somo</label><select id="resultSubject"><option value="Qur'an">Qur'an</option><option value="Tajwiid">Tajwiid</option><option value="Hadithi">Hadithi</option><option value="Fiqhi">Fiqhi</option><option value="Lugha ya Kiarabu">Lugha ya Kiarabu</option></select></div>
-                <div class="form-group"><label>Alama (0-50)</label><input type="number" id="resultScore" min="0" max="50"></div>
-                <div class="form-group"><label>Mwezi</label><input type="text" id="resultMonth" placeholder="Januari"></div>
-                <div class="form-group"><label>Mwaka</label><input type="text" id="resultYear" placeholder="2025"></div>
-            </div>
-            <button id="addResultBtn">Hifadhi Matokeo</button>
+      <div class="section-title">📊 Ingiza Matokeo ya Mtihani</div>
+      <div class="section-divider"></div>
+      <div class="form-card">
+        <div class="form-card-title">✏️ Fomu ya Matokeo</div>
+        <div class="form-grid">
+          <div class="field"><label>ID ya Mwanafunzi *</label><input type="number" id="resultStudentId" placeholder="101" /></div>
+          <div class="field"><label>Jina la Mwanafunzi</label><input type="text" id="resultStudentName" placeholder="Jina" /></div>
+          <div class="field"><label>Darasa</label><input type="text" id="resultClass" placeholder="Darasa" /></div>
+          <div class="field"><label>Somo</label>
+            <select id="resultSubject">
+              <option>Qur'an</option>
+              <option>Tajwiid</option>
+              <option>Hadithi</option>
+              <option>Fiqhi</option>
+              <option>Lugha ya Kiarabu</option>
+            </select>
+          </div>
+          <div class="field"><label>Alama (0–50) *</label><input type="number" id="resultScore" min="0" max="50" placeholder="45" /></div>
+          <div class="field"><label>Mwezi</label><input type="text" id="resultMonth" placeholder="Mf. Januari" /></div>
+          <div class="field"><label>Mwaka</label><input type="text" id="resultYear" placeholder="2025" /></div>
         </div>
-        <h3>📚 Matokeo Yaliyopo</h3>
-        <div style="overflow-x:auto"><table id="resultsTable"><thead><tr><th>ID Mwanafunzi</th><th>Jina</th><th>Darasa</th><th>Somo</th><th>Alama</th><th>Daraja</th><th>Mwezi</th></tr></thead><tbody></tbody></table></div>
+        <button class="btn btn-save" id="addResultBtn">💾 Hifadhi Matokeo</button>
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-header">
+          <span class="table-title">📚 Historia ya Matokeo</span>
+          <span class="table-count" id="resultsCount">0</span>
+        </div>
+        <table class="data-table" id="resultsTable">
+          <thead><tr>
+            <th>ID</th><th>Jina</th><th>Darasa</th><th>Somo</th><th>Alama</th><th>Daraja</th><th>Mwezi</th>
+          </tr></thead>
+          <tbody id="resultsBody">
+            <tr><td colspan="7"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna matokeo bado</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Tab: Walimu -->
+    <!-- ── Walimu ──────────────────────────── -->
     <div class="tab-pane" id="teachersPane">
-        <div class="form-card"><h3>➕ Msajili Mwalimu</h3>
-            <div class="form-row"><div class="form-group"><label>Jina la mwalimu</label><input type="text" id="teacherName"></div>
-            <div class="form-group"><label>Simu</label><input type="text" id="teacherPhone"></div>
-            <div class="form-group"><label>Somo anachofundisha</label><input type="text" id="teacherSubject" placeholder="Qur'an, Fiqhi..."></div></div>
-            <button id="addTeacherBtn">Hifadhi Mwalimu</button>
+      <div class="section-title">👩‍🏫 Usajili wa Mwalimu</div>
+      <div class="section-divider"></div>
+      <div class="form-card">
+        <div class="form-card-title">✏️ Fomu ya Mwalimu</div>
+        <div class="form-grid">
+          <div class="field"><label>Jina Kamili *</label><input type="text" id="teacherName" placeholder="Ustadh / Ustadha" /></div>
+          <div class="field"><label>Nambari ya Simu</label><input type="tel" id="teacherPhone" placeholder="+255 7XX XXX XXX" /></div>
+          <div class="field"><label>Somo Analoifundisha</label><input type="text" id="teacherSubject" placeholder="Mf. Qur'an" /></div>
         </div>
-        <h3>👩‍🏫 Orodha ya Walimu</h3>
-        <div style="overflow-x:auto"><table id="teachersTable"><thead><tr><th>ID</th><th>Jina</th><th>Simu</th><th>Somo</th></tr></thead><tbody></tbody></table></div>
+        <button class="btn btn-save" id="addTeacherBtn">💾 Hifadhi Mwalimu</button>
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-header">
+          <span class="table-title">👩‍🏫 Orodha ya Walimu</span>
+          <span class="table-count" id="teachersCount">0</span>
+        </div>
+        <table class="data-table" id="teachersTable">
+          <thead><tr><th>ID</th><th>Jina</th><th>Simu</th><th>Somo</th></tr></thead>
+          <tbody id="teachersBody">
+            <tr><td colspan="4"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna walimu bado</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Tab: Ratiba -->
+    <!-- ── Ratiba ──────────────────────────── -->
     <div class="tab-pane" id="schedulePane">
-        <div class="form-card"><h3>➕ Weka Ratiba (Kwa siku)</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Siku (Jumamosi - Jumatano)</label><input type="text" id="scheduleDay" placeholder="Jumamosi"></div>
-                <div class="form-group"><label>Kipindi cha 1 (saa 8-9)</label><input type="text" id="period1" placeholder="Qur'an"></div>
-                <div class="form-group"><label>Kipindi cha 2 (saa 9-10)</label><input type="text" id="period2" placeholder="Hadithi"></div>
-                <div class="form-group"><label>Mwalimu kipindi 1</label><input type="text" id="teacher1"></div>
-                <div class="form-group"><label>Mwalimu kipindi 2</label><input type="text" id="teacher2"></div>
-            </div>
-            <button id="addScheduleBtn">Hifadhi Ratiba</button>
+      <div class="section-title">🗓️ Ratiba ya Masomo</div>
+      <div class="section-divider"></div>
+      <div class="form-card">
+        <div class="form-card-title">✏️ Fomu ya Ratiba</div>
+        <div class="form-grid">
+          <div class="field"><label>Siku *</label><input type="text" id="scheduleDay" placeholder="Mf. Jumamosi" /></div>
+          <div class="field"><label>Kipindi 1 (Saa 8–9)</label><input type="text" id="period1" placeholder="Mf. Qur'an" /></div>
+          <div class="field"><label>Kipindi 2 (Saa 9–10)</label><input type="text" id="period2" placeholder="Mf. Tajwiid" /></div>
+          <div class="field"><label>Mwalimu – Kipindi 1</label><input type="text" id="teacher1" placeholder="Jina la mwalimu" /></div>
+          <div class="field"><label>Mwalimu – Kipindi 2</label><input type="text" id="teacher2" placeholder="Jina la mwalimu" /></div>
         </div>
-        <h3>📅 Ratiba ya wiki</h3>
-        <div style="overflow-x:auto"><table id="scheduleTable"><thead><tr><th>Siku</th><th>Kipindi 1</th><th>Mwalimu 1</th><th>Kipindi 2</th><th>Mwalimu 2</th></tr></thead><tbody></tbody></table></div>
+        <button class="btn btn-save" id="addScheduleBtn">💾 Hifadhi Ratiba</button>
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-header">
+          <span class="table-title">📅 Ratiba ya Wiki</span>
+          <span class="table-count" id="scheduleCount">0</span>
+        </div>
+        <table class="data-table" id="scheduleTable">
+          <thead><tr>
+            <th>Siku</th><th>Kipindi 1</th><th>Mwalimu 1</th><th>Kipindi 2</th><th>Mwalimu 2</th>
+          </tr></thead>
+          <tbody id="scheduleBody">
+            <tr><td colspan="5"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna ratiba bado</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Tab: Malipo -->
+    <!-- ── Malipo ──────────────────────────── -->
     <div class="tab-pane" id="paymentsPane">
-        <div class="form-card"><h3>💰 Rekodi Malipo (Ada Tsh 5,000/mwezi)</h3>
-            <div class="form-row">
-                <div class="form-group"><label>ID ya Mwanafunzi</label><input type="number" id="paymentStudentId"></div>
-                <div class="form-group"><label>Jina la Mwanafunzi</label><input type="text" id="paymentStudentName"></div>
-                <div class="form-group"><label>Kiasi (Tsh)</label><input type="number" id="paymentAmount" value="5000"></div>
-                <div class="form-group"><label>Mwezi</label><input type="text" id="paymentMonth" placeholder="Aprili"></div>
-                <div class="form-group"><label>Mwaka</label><input type="text" id="paymentYear" placeholder="2025"></div>
-            </div>
-            <button id="addPaymentBtn">Hifadhi Malipo</button>
+      <div class="section-title">💰 Rekodi Malipo ya Ada</div>
+      <div class="section-divider"></div>
+      <div class="form-card">
+        <div class="form-card-title">✏️ Fomu ya Malipo (Ada: Tsh 5,000)</div>
+        <div class="form-grid">
+          <div class="field"><label>ID ya Mwanafunzi *</label><input type="number" id="paymentStudentId" placeholder="101" /></div>
+          <div class="field"><label>Jina la Mwanafunzi</label><input type="text" id="paymentStudentName" placeholder="Jina" /></div>
+          <div class="field"><label>Kiasi (Tsh)</label><input type="number" id="paymentAmount" value="5000" /></div>
+          <div class="field"><label>Mwezi</label><input type="text" id="paymentMonth" placeholder="Mf. Januari" /></div>
+          <div class="field"><label>Mwaka</label><input type="text" id="paymentYear" placeholder="2025" /></div>
         </div>
-        <h3>🧾 Historia ya Malipo</h3>
-        <div style="overflow-x:auto"><table id="paymentsTable"><thead><tr><th>ID Mwanafunzi</th><th>Jina</th><th>Kiasi</th><th>Mwezi</th><th>Mwaka</th></tr></thead><tbody></tbody></table></div>
+        <button class="btn btn-save" id="addPaymentBtn">💾 Hifadhi Malipo</button>
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-header">
+          <span class="table-title">🧾 Historia ya Malipo</span>
+          <span class="table-count" id="paymentsCount">0</span>
+        </div>
+        <table class="data-table" id="paymentsTable">
+          <thead><tr>
+            <th>ID Mwanafunzi</th><th>Jina</th><th>Kiasi</th><th>Mwezi</th><th>Mwaka</th>
+          </tr></thead>
+          <tbody id="paymentsBody">
+            <tr><td colspan="5"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna historia ya malipo</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
-<div class="toast" id="toastMsg">Ujumbe</div>
+  </div><!-- /main-content -->
+</div><!-- /dashboard -->
 
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════ JAVASCRIPT ═══════════════════════════ -->
 <script>
-    // ----------------------------------------------
-    // URL yako ya Google Apps Script (imeunganishwa)
-    // ----------------------------------------------
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoSD7Rnnr9J4Pi2y1Kt6r2qQuIQRMzcSq-cfLUNrncURi6cTq6jOuNmSNImoCkHBo/exec';
+// ─── CONFIG ──────────────────────────────────────────────────────────
+// 🔁 Badilisha URL hii na URL ya Google Apps Script yako
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzx4YOwPhwi-0olT9MyOvUCmBqsp8yt7FSyC7OLCBXyS6QRdGpeK02apddJG8zL9cV2/exec';
 
-    async function fetchGet(action, params = {}) {
-        let url = `${SCRIPT_URL}?action=${action}`;
-        for (let k in params) url += `&${k}=${encodeURIComponent(params[k])}`;
-        const res = await fetch(url, { method: 'GET', mode: 'cors' });
-        return await res.json();
-    }
+// ─── HELPERS ─────────────────────────────────────────────────────────
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('visible');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('visible'), 3200);
+}
 
-    function postData(data) {
-        const formBody = Object.keys(data).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k])).join('&');
-        return fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formBody
-        });
-    }
+function setLoading(btn, loading) {
+  const spinner = btn.querySelector('.spinner');
+  const label   = btn.querySelector('span:not(.spinner)') || btn;
+  if (spinner) spinner.style.display = loading ? 'inline-block' : 'none';
+  btn.disabled = loading;
+}
 
-    function showToast(msg, isError = false) {
-        const toast = document.getElementById('toastMsg');
-        toast.textContent = msg;
-        toast.style.background = isError ? '#c0392b' : '#1e5a3e';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    }
+function val(id) { return document.getElementById(id)?.value?.trim() || ''; }
+function clear(...ids) { ids.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; }); }
 
-    // ---------- LOGIN ----------
-    async function login(username, password) {
-        try {
-            const res = await fetchGet('login', { username, password });
-            if (res.success) {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                loadAllData();
-            } else {
-                showToast('Jina au nenosiri si sahihi', true);
-            }
-        } catch(e) {
-            showToast('Hitilafu ya mtandao: ' + e.message, true);
-        }
-    }
+function updateCount(id, n) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = n;
+}
 
-    // ---------- LOAD ALL DATA ----------
-    async function loadAllData() {
-        await Promise.all([loadStudents(), loadResults(), loadTeachers(), loadSchedule(), loadPayments()]);
-    }
+function gradeClass(g) {
+  if (!g) return '';
+  const first = g.charAt(0).toUpperCase();
+  if (first === 'A') return 'grade-a';
+  if (first === 'B') return 'grade-b';
+  if (first === 'C') return 'grade-c';
+  return 'grade-d';
+}
 
-    async function loadStudents() {
-        const data = await fetchGet('getStudents');
-        const tbody = document.querySelector('#studentsTable tbody');
-        tbody.innerHTML = '';
-        if (data && data.length) {
-            for (let i = 1; i < data.length; i++) {
-                const row = data[i];
-                tbody.innerHTML += `<tr><td>${row[0]}</td><td>${row[1] || ''}</td><td>${row[2] || ''}</td><td>${row[3] || ''}</td><td>${row[4] || ''}</td><td>${row[7] || 'Active'}</td></tr>`;
-            }
-        }
-    }
-    async function loadResults() {
-        const data = await fetchGet('getResults');
-        const tbody = document.querySelector('#resultsTable tbody');
-        tbody.innerHTML = '';
-        if (data && data.length) {
-            for (let i = 1; i < data.length; i++) {
-                const r = data[i];
-                tbody.innerHTML += `<tr><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td><td>${r[8]}</td></tr>`;
-            }
-        }
-    }
-    async function loadTeachers() {
-        const data = await fetchGet('getTeachers');
-        const tbody = document.querySelector('#teachersTable tbody');
-        tbody.innerHTML = '';
-        if (data && data.length) {
-            for (let i = 1; i < data.length; i++) {
-                tbody.innerHTML += `<tr><td>${data[i][0]}</td><td>${data[i][1]}</td><td>${data[i][2]}</td><td>${data[i][3]}</td></tr>`;
-            }
-        }
-    }
-    async function loadSchedule() {
-        const data = await fetchGet('getSchedule');
-        const tbody = document.querySelector('#scheduleTable tbody');
-        tbody.innerHTML = '';
-        if (data && data.length) {
-            for (let i = 1; i < data.length; i++) {
-                tbody.innerHTML += `<tr><td>${data[i][0]}</td><td>${data[i][1]}</td><td>${data[i][3]}</td><td>${data[i][2]}</td><td>${data[i][4]}</td></tr>`;
-            }
-        }
-    }
-    async function loadPayments() {
-        const data = await fetchGet('getPayments');
-        const tbody = document.querySelector('#paymentsTable tbody');
-        tbody.innerHTML = '';
-        if (data && data.length) {
-            for (let i = 1; i < data.length; i++) {
-                tbody.innerHTML += `<tr><td>${data[i][1]}</td><td>${data[i][2]}</td><td>${data[i][3]}</td><td>${data[i][4]}</td><td>${data[i][5]}</td></tr>`;
-            }
-        }
-    }
+// ─── API CALLS ────────────────────────────────────────────────────────
+async function postData(action, params = {}) {
+  const body = new URLSearchParams({ action, ...params }).toString();
+  const res = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body
+  });
+  return res.json();
+}
 
-    // ---------- ADD HANDLERS ----------
-    document.getElementById('addStudentBtn').onclick = async () => {
-        const name = document.getElementById('studentName').value;
-        if (!name) return showToast('Jina la mwanafunzi linahitajika', true);
-        await postData({ action: 'addStudent', fullName: name, class: document.getElementById('studentClass').value, parent: document.getElementById('parentName').value, phone: document.getElementById('parentPhone').value, address: document.getElementById('studentAddress').value });
-        showToast('Mwanafunzi ameongezwa');
-        loadStudents();
-        document.getElementById('studentName').value = ''; document.getElementById('studentClass').value=''; document.getElementById('parentName').value=''; document.getElementById('parentPhone').value=''; document.getElementById('studentAddress').value='';
-    };
-    document.getElementById('addResultBtn').onclick = async () => {
-        const sid = document.getElementById('resultStudentId').value;
-        if (!sid) return showToast('Ingiza ID ya mwanafunzi', true);
-        await postData({ action: 'addResult', studentId: sid, studentName: document.getElementById('resultStudentName').value, class: document.getElementById('resultClass').value, subject: document.getElementById('resultSubject').value, score: document.getElementById('resultScore').value, month: document.getElementById('resultMonth').value, year: document.getElementById('resultYear').value });
-        showToast('Matokeo yamehifadhiwa');
-        loadResults();
-    };
-    document.getElementById('addTeacherBtn').onclick = async () => {
-        const name = document.getElementById('teacherName').value;
-        if (!name) return showToast('Jina la mwalimu linahitajika', true);
-        await postData({ action: 'addTeacher', name, phone: document.getElementById('teacherPhone').value, subject: document.getElementById('teacherSubject').value });
-        showToast('Mwalimu ameongezwa');
-        loadTeachers();
-        document.getElementById('teacherName').value=''; document.getElementById('teacherPhone').value=''; document.getElementById('teacherSubject').value='';
-    };
-    document.getElementById('addScheduleBtn').onclick = async () => {
-        const day = document.getElementById('scheduleDay').value;
-        if (!day) return showToast('Siku inahitajika', true);
-        await postData({ action: 'addSchedule', day, period1: document.getElementById('period1').value, period2: document.getElementById('period2').value, teacher1: document.getElementById('teacher1').value, teacher2: document.getElementById('teacher2').value });
-        showToast('Ratiba imehifadhiwa');
-        loadSchedule();
-    };
-    document.getElementById('addPaymentBtn').onclick = async () => {
-        const sid = document.getElementById('paymentStudentId').value;
-        if (!sid) return showToast('ID ya mwanafunzi inahitajika', true);
-        await postData({ action: 'addPayment', studentId: sid, studentName: document.getElementById('paymentStudentName').value, amount: document.getElementById('paymentAmount').value, month: document.getElementById('paymentMonth').value, year: document.getElementById('paymentYear').value });
-        showToast('Malipo yamehifadhiwa');
-        loadPayments();
-    };
+async function getData(action) {
+  const res = await fetch(`${SCRIPT_URL}?action=${action}`, { method: 'GET', mode: 'cors' });
+  return res.json();
+}
 
-    // Tab switching
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panes = document.querySelectorAll('.tab-pane');
-    tabs.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tabId = btn.getAttribute('data-tab');
-            tabs.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            panes.forEach(p => p.classList.remove('active'));
-            document.getElementById(`${tabId}Pane`).classList.add('active');
-        });
+// ─── LOGIN ────────────────────────────────────────────────────────────
+document.getElementById('loginBtn').onclick = async function () {
+  const user = val('username'), pass = val('password');
+  if (!user || !pass) return showToast('Jaza jina na nenosiri', true);
+  setLoading(this, true);
+  try {
+    const res = await postData('login', { username: user, password: pass });
+    if (res.success) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      loadAll();
+    } else {
+      showToast('Jina au nenosiri si sahihi', true);
+    }
+  } catch {
+    showToast('Hitilafu ya mtandao – jaribu tena', true);
+  }
+  setLoading(this, false);
+};
+
+document.getElementById('password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('loginBtn').click();
+});
+
+document.getElementById('logoutBtn').onclick = () => {
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  clear('username', 'password');
+};
+
+// ─── TABS ─────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab + 'Pane').classList.add('active');
+  });
+});
+
+// ─── LOAD ALL ─────────────────────────────────────────────────────────
+async function loadAll() {
+  await Promise.all([
+    loadStudents(), loadResults(), loadTeachers(),
+    loadSchedule(), loadPayments()
+  ]);
+}
+
+// ─── STUDENTS ─────────────────────────────────────────────────────────
+async function loadStudents() {
+  const data = await getData('getStudents');
+  const tbody = document.getElementById('studentsBody');
+  const rows = data?.length > 1 ? data.slice(1) : [];
+  updateCount('studentsCount', rows.length);
+  document.getElementById('statStudents').textContent = rows.length;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna wanafunzi bado</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r[0]||''}</td>
+      <td><strong>${r[1]||''}</strong></td>
+      <td>${r[2]||''}</td>
+      <td>${r[3]||''}</td>
+      <td>${r[4]||''}</td>
+      <td><span class="badge ${(r[7]||'Active')==='Active'?'badge-active':'badge-inactive'}">${r[7]||'Active'}</span></td>
+    </tr>`).join('');
+}
+
+document.getElementById('addStudentBtn').onclick = async function () {
+  const name = val('studentName');
+  if (!name) return showToast('Jina la mwanafunzi linahitajika', true);
+  setLoading(this, true);
+  try {
+    await postData('addStudent', {
+      fullName: name,
+      class: val('studentClass'),
+      parent: val('parentName'),
+      phone: val('parentPhone'),
+      address: val('studentAddress')
     });
+    showToast('✅ Mwanafunzi ameongezwa kikamilifu');
+    clear('studentName','studentClass','parentName','parentPhone','studentAddress');
+    loadStudents();
+  } catch { showToast('Hitilafu – jaribu tena', true); }
+  setLoading(this, false);
+};
 
-    document.getElementById('loginBtn').onclick = () => login(document.getElementById('username').value, document.getElementById('password').value);
-    document.getElementById('logoutBtn').onclick = () => {
-        document.getElementById('dashboard').style.display = 'none';
-        document.getElementById('loginContainer').style.display = 'block';
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-    };
+// ─── RESULTS ──────────────────────────────────────────────────────────
+async function loadResults() {
+  const data = await getData('getResults');
+  const tbody = document.getElementById('resultsBody');
+  const rows = data?.length > 1 ? data.slice(1) : [];
+  updateCount('resultsCount', rows.length);
+  document.getElementById('statResults').textContent = rows.length;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna matokeo bado</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r[1]||''}</td>
+      <td><strong>${r[2]||''}</strong></td>
+      <td>${r[3]||''}</td>
+      <td>${r[4]||''}</td>
+      <td>${r[5]||''}</td>
+      <td class="${gradeClass(r[6])}">${r[6]||''}</td>
+      <td>${r[8]||''}</td>
+    </tr>`).join('');
+}
+
+document.getElementById('addResultBtn').onclick = async function () {
+  const sid = val('resultStudentId');
+  if (!sid) return showToast('ID ya mwanafunzi inahitajika', true);
+  setLoading(this, true);
+  try {
+    await postData('addResult', {
+      studentId: sid,
+      studentName: val('resultStudentName'),
+      class: val('resultClass'),
+      subject: document.getElementById('resultSubject').value,
+      score: val('resultScore'),
+      month: val('resultMonth'),
+      year: val('resultYear')
+    });
+    showToast('✅ Matokeo yamehifadhiwa');
+    loadResults();
+  } catch { showToast('Hitilafu – jaribu tena', true); }
+  setLoading(this, false);
+};
+
+// ─── TEACHERS ─────────────────────────────────────────────────────────
+async function loadTeachers() {
+  const data = await getData('getTeachers');
+  const tbody = document.getElementById('teachersBody');
+  const rows = data?.length > 1 ? data.slice(1) : [];
+  updateCount('teachersCount', rows.length);
+  document.getElementById('statTeachers').textContent = rows.length;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna walimu bado</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r[0]||''}</td>
+      <td><strong>${r[1]||''}</strong></td>
+      <td>${r[2]||''}</td>
+      <td>${r[3]||''}</td>
+    </tr>`).join('');
+}
+
+document.getElementById('addTeacherBtn').onclick = async function () {
+  const name = val('teacherName');
+  if (!name) return showToast('Jina la mwalimu linahitajika', true);
+  setLoading(this, true);
+  try {
+    await postData('addTeacher', {
+      name,
+      phone: val('teacherPhone'),
+      subject: val('teacherSubject')
+    });
+    showToast('✅ Mwalimu ameongezwa');
+    clear('teacherName','teacherPhone','teacherSubject');
+    loadTeachers();
+  } catch { showToast('Hitilafu – jaribu tena', true); }
+  setLoading(this, false);
+};
+
+// ─── SCHEDULE ─────────────────────────────────────────────────────────
+async function loadSchedule() {
+  const data = await getData('getSchedule');
+  const tbody = document.getElementById('scheduleBody');
+  const rows = data?.length > 1 ? data.slice(1) : [];
+  updateCount('scheduleCount', rows.length);
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna ratiba bado</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td><strong>${r[0]||''}</strong></td>
+      <td>${r[1]||''}</td>
+      <td>${r[3]||''}</td>
+      <td>${r[2]||''}</td>
+      <td>${r[4]||''}</td>
+    </tr>`).join('');
+}
+
+document.getElementById('addScheduleBtn').onclick = async function () {
+  const day = val('scheduleDay');
+  if (!day) return showToast('Siku inahitajika', true);
+  setLoading(this, true);
+  try {
+    await postData('addSchedule', {
+      day,
+      period1: val('period1'),
+      period2: val('period2'),
+      teacher1: val('teacher1'),
+      teacher2: val('teacher2')
+    });
+    showToast('✅ Ratiba imehifadhiwa');
+    clear('scheduleDay','period1','period2','teacher1','teacher2');
+    loadSchedule();
+  } catch { showToast('Hitilafu – jaribu tena', true); }
+  setLoading(this, false);
+};
+
+// ─── PAYMENTS ─────────────────────────────────────────────────────────
+async function loadPayments() {
+  const data = await getData('getPayments');
+  const tbody = document.getElementById('paymentsBody');
+  const rows = data?.length > 1 ? data.slice(1) : [];
+  updateCount('paymentsCount', rows.length);
+  document.getElementById('statPayments').textContent = rows.length;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">📭</div><p>Hakuna historia ya malipo</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${r[1]||''}</td>
+      <td><strong>${r[2]||''}</strong></td>
+      <td>Tsh ${Number(r[3]||0).toLocaleString()}</td>
+      <td>${r[4]||''}</td>
+      <td>${r[5]||''}</td>
+    </tr>`).join('');
+}
+
+document.getElementById('addPaymentBtn').onclick = async function () {
+  const sid = val('paymentStudentId');
+  if (!sid) return showToast('ID ya mwanafunzi inahitajika', true);
+  setLoading(this, true);
+  try {
+    await postData('addPayment', {
+      studentId: sid,
+      studentName: val('paymentStudentName'),
+      amount: val('paymentAmount'),
+      month: val('paymentMonth'),
+      year: val('paymentYear')
+    });
+    showToast('✅ Malipo yamehifadhiwa');
+    loadPayments();
+  } catch { showToast('Hitilafu – jaribu tena', true); }
+  setLoading(this, false);
+};
 </script>
 </body>
 </html>
