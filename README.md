@@ -1,116 +1,225 @@
 # 📚 Mfumo wa Madrasa | Madrasa Management System
 
 Mfumo kamili wa kusimamia shule ya Qur'ani (Madrasa) unaojumuisha:
-- Usajili na usimamizi wa wanafunzi.
-- Kuingiza na kuona matokeo ya masomo (Qur'an, Tajwiid, Hadithi, Fiqhi, Lugha ya Kiarabu) – alama 50 na madaraja.
-- Usimamizi wa walimu na ugawaji wa masomo.
-- Ratiba ya wiki (Jumamosi – Jumatano, vipindi 2 kwa siku).
-- Kurekodi malipo ya ada (Tsh 5,000/= kwa mwezi).
-- Uthibitishaji wa watumiaji (login).
 
-Mfumo unatumia **Google Apps Script** kwa back-end na **Google Sheets** kwa uhifadhi wa data. Unaweza kuupeleka kwenye **GitHub Pages** au kutumia URL ya web app moja kwa moja.
+- Usajili na usimamizi wa wanafunzi
+- Kuingiza na kuona matokeo ya masomo
+- Usimamizi wa walimu
+- Ratiba ya wiki
+- Rekodi za malipo ya ada
+- Mfumo wa login kwa watumiaji
+
+Mfumo umetengenezwa kwa kutumia:
+
+- Google Apps Script
+- Google Sheets
+- HTML / CSS / JavaScript
 
 ---
 
-## ✅ Vipengele (Features)
+# ✅ Vipengele vya Mfumo
 
 | Moduli | Maelezo |
 |--------|----------|
-| Wanafunzi | Ongeza, orodhesha wanafunzi (jina, darasa, mzazi, simu, anwani) |
-| Matokeo | Ingiza alama (0-50) kwa kila somo; daraja (A–F) linakokotolewa kiotomatiki |
-| Walimu | Ongeza na orodhesha walimu wanaofundisha |
-| Ratiba | Weka ratiba ya siku kwa vipindi viwili (saa 8–10) Jumamosi hadi Jumatano |
-| Malipo | Rekodi malipo ya Tsh 5,000 kwa mwezi na uone historia |
-| Login | Watumiaji wanaoingia kwa jina la mtumiaji na nenosiri (default: admin / admin123) |
+| Wanafunzi | Ongeza, hariri na orodhesha wanafunzi |
+| Matokeo | Ingiza alama za Qur'an, Tajwiid, Hadithi, Fiqhi na Kiarabu |
+| Walimu | Usimamizi wa walimu na masomo yao |
+| Ratiba | Ratiba ya vipindi vya kila wiki |
+| Malipo | Rekodi malipo ya ada |
+| Login | Mfumo wa kuingia kwa username na password |
 
 ---
 
-## 🛠️ Teknolojia Zinazotumika
+# 🛠️ Teknolojia Zinazotumika
 
-- **Google Apps Script** (Back-end API & Hosting)
-- **Google Sheets** (Database)
-- **HTML/CSS/JS** (Front-end)
-- **Font Awesome / Google Fonts** (Optional)
+- Google Apps Script (Backend API)
+- Google Sheets (Database)
+- HTML / CSS / JavaScript (Frontend)
+- Font Awesome
+- Google Fonts
 
 ---
 
-## 🚀 Mwongozo wa Kuanzisha (Deployment)
+# 🚀 Mwongozo wa Kuanzisha Mfumo
 
-### 1. Unda Google Sheet
-- Unda spreadsheet mpya (au tumia iliyopo) kwenye Google Drive.
-- Nakili **ID** ya spreadsheet (kutoka kwenye URL: `.../d/SPREADSHEET_ID/edit...`).
+## 1. Unda Google Spreadsheet
 
-### 2. Unda Mradi wa Google Apps Script
-- Nenda kwenye [script.google.com](https://script.google.com) na uanze mradi mpya.
-- Katika mhariri, unda faili mbili:
+Unda spreadsheet mpya kwenye Google Drive.
 
-#### `Code.gs`
+Tumia Spreadsheet hii:
+
 ```javascript
-// Nakili msimbo kamili wa Apps Script (uliopewa hapo juu) hapa
-// Kumbuka: Kubadilisha SPREADSHEET_ID kuwa yako
-index.html
-html
-<!-- Nakili HTML kamili ya mfumo (iliyopewa hapo juu) hapa -->
-3. Sanidi Mipangilio ya Deployment
-Bofya Deploy → New deployment → Web app.
+const SPREADSHEET_ID = '1QL4TQ7teCj9r6a_RkmwZC0PNcSZCOgOrMoAq-H3Ml3Q';
+```
 
-Execute as: Me (mwenyewe)
+---
 
-Who has access: Anyone (si "Anyone with link", chagua "Anyone")
+## 2. Unda Google Apps Script Project
 
-Bofya Deploy na nakili URL ya web app (k.m. https://script.google.com/macros/s/.../exec).
+Nenda kwenye:
 
-4. Ongeza Watumiaji (Users)
-Google Sheet yako itakuwa na karatasi inayoitwa Users.
+```text
+https://script.google.com
+```
 
-Ikiwa haipo, itaundwa kiotomatiki.
+Kisha:
 
-Weka safu ya kwanza: username, password
+- Unda project mpya
+- Weka faili mbili:
 
-Kisha weka mstari wa kwanza wa mtumiaji: admin, admin123
+### `Code.gs`
 
-Unaweza kuongeza watumiaji wengine.
+```javascript
+// Bandika Apps Script code hapa
+```
 
-5. Tumia Mfumo
-Fungua URL ya web app uliyopata.
+### `index.html`
 
-Ingia kwa admin / admin123.
+```html
+<!-- Bandika HTML code hapa -->
+```
 
-Anza kusajili wanafunzi, walimu, ratiba, matokeo na malipo.
+---
 
-Kumbuka: Ikiwa unataka kutumia mfumo kwenye GitHub Pages, nakili HTML kamili (iliyojitegemea) kwenye index.html ya repo yako na ubadilishe SCRIPT_URL kuwa URL ya web app ya Google Apps Script. Lakini njia rahisi ni kutumia URL ya web app moja kwa moja (hakuna CORS, kwa sababu mfumo unahudumiwa na Google).
+# 🌐 Web App URL
 
-📁 Muundo wa Google Sheets
-Karatasi zifuatazo zinaundwa moja kwa moja (au weka mwenyewe):
+```javascript
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBj2oyrtZBchTri1QnJpVVqrL3r0lC0_6-0UFBeBqOz6Suv-f_yOxV25eT_mFktS4/exec';
+```
 
-Jina la Karatasi	Maelezo
-Users	Watumiaji (username, password)
-Wanafunzi	id, jina, darasa, mzazi, simu, anwani, tarehe, status
-Walimu	id, jina, simu, somo
-Matokeo	uid, student_id, jina, darasa, somo, alama, daraja, mwaka, mwezi
-Ratiba	siku, kipindi1, kipindi2, mwalimu1, mwalimu2
-Malipo	id, student_id, jina, kiasi, mwezi, mwaka, tarehe
-🔧 Marekebisho (Customization)
-Badilisha Ada – Kwenye HTML, tafuta value="5000" na ubadilishe.
+---
 
-Masomo – Orodha ya masomo iko kwenye <select id="resultSubject"> pamoja na chaguo.
+# 📤 Deployment
 
-Siku za Ratiba – Zimeorodheshwa kwa mwongozo; unaweza kuongeza au kupunguza.
+Bofya:
 
-Alama na Daraja – Kanuni: A (45-50), B (40-44), C (35-39), D (30-34), F (<30). Iko kwenye backend (saveResult).
+```text
+Deploy → New deployment → Web app
+```
 
-🐛 Utatuzi wa Makosa (Troubleshooting)
-Tatizo	Suluhisho
-Login haifanyi kazi	Hakikisha karatasi ya Users ipo na ina mtumiaji admin / admin123.
-CORS error (wakati wa kupeleka HTML kwenye GitHub Pages)	Badala yake, tumia URL ya web app moja kwa moja (inayotolewa na Google Apps Script). Mfumo ulio ndani ya script hauna CORS.
-Data haionyeshwi	Angalia kama karatasi zina headers sahihi. Ikiwa bado, fungua console (F12) uone kama kuna makosa.
-Google Sheet haijafunguliwa	Hakikisha umeidhinisha (authorize) script mara ya kwanza.
-📄 Leseni
-Mfumo huu ni wa kutumia bure kwa madrasa na shule za Qur'ani. Unaweza kurekebisha kwa matakwa yako.
+Kisha chagua:
 
-🙏 Shukrani
-Imetengenezwa kwa kutumia Google Apps Script, HTML, na Google Sheets. Inaendeshwa kwa ushirikiano na Masjid Taqwa na wadau wa elimu ya Kiislamu.
+| Setting | Value |
+|----------|--------|
+| Execute as | Me |
+| Who has access | Anyone |
 
-text
+Baada ya hapo:
 
-Unaweza kubandika hii kwenye faili ya `README.md` kwenye GitHub repo yako. Ikiwa unataka nirekebishe au niongeze sehemu fulani (k.m. picha, maelezo ya utatuzi zaidi), niko tayari.
+- Bofya `Deploy`
+- Nakili URL ya Web App
+
+---
+
+# 👤 Login ya Mwanzo
+
+```text
+Username: admin
+Password: admin123
+```
+
+---
+
+# 📁 Muundo wa Google Sheets
+
+| Sheet Name | Maelezo |
+|------------|----------|
+| Users | Username na Password |
+| Wanafunzi | Taarifa za wanafunzi |
+| Walimu | Taarifa za walimu |
+| Matokeo | Alama za wanafunzi |
+| Ratiba | Ratiba ya vipindi |
+| Malipo | Rekodi za malipo |
+
+---
+
+# 📚 Masomo Yanayotumika
+
+- Qur'an
+- Tajwiid
+- Hadithi
+- Fiqhi
+- Lugha ya Kiarabu
+
+---
+
+# 🎓 Mfumo wa Madaraja
+
+| Alama | Daraja |
+|--------|---------|
+| 45 – 50 | A |
+| 40 – 44 | B |
+| 35 – 39 | C |
+| 30 – 34 | D |
+| Chini ya 30 | F |
+
+---
+
+# 🔧 Customization
+
+## Kubadilisha Ada
+
+Tafuta:
+
+```html
+value="5000"
+```
+
+Kisha badilisha kiasi unachotaka.
+
+---
+
+## Kubadilisha Masomo
+
+Tafuta:
+
+```html
+<select id="resultSubject">
+```
+
+Ongeza au punguza masomo.
+
+---
+
+## Kubadilisha Ratiba
+
+Ratiba ipo kwenye sehemu ya:
+
+```javascript
+Ratiba
+```
+
+Unaweza kuongeza siku au vipindi.
+
+---
+
+# 🐛 Troubleshooting
+
+| Tatizo | Suluhisho |
+|--------|------------|
+| Login haifanyi kazi | Hakikisha sheet ya `Users` ipo |
+| Data haionekani | Angalia headers za Google Sheet |
+| CORS Error | Tumia Web App URL moja kwa moja |
+| Spreadsheet haifunguki | Authorize script kwanza |
+
+---
+
+# 📄 Leseni
+
+Mfumo huu unaweza kutumiwa bure kwa madrasa na taasisi za elimu ya Kiislamu.
+
+Unaweza kuubadilisha kulingana na mahitaji yako.
+
+---
+
+# 🙏 Shukrani
+
+Imetengenezwa kwa kutumia:
+
+- Google Apps Script
+- Google Sheets
+- HTML / CSS / JavaScript
+
+Kwa matumizi ya madrasa, masjid na taasisi za elimu ya Kiislamu.
+
+---
