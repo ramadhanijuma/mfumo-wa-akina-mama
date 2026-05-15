@@ -716,7 +716,7 @@
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────────────
 // 🔁 Badilisha URL hii na URL ya Google Apps Script yako
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBj2oyrtZBchTri1QnJpVVqrL3r0lC0_6-0UFBeBqOz6Suv-f_yOxV25eT_mFktS4/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwp4vKmXeNwgz61nWLxWlzgaVIF2I5hsZgrv6BzqBCBao62pU2WNjDGwUF29mZBGIT8/exec';
 
 // ─── HELPERS ─────────────────────────────────────────────────────────
 function showToast(msg, isError = false) {
@@ -753,21 +753,31 @@ function gradeClass(g) {
 }
 
 // ─── API CALLS ────────────────────────────────────────────────────────
-async function postData(action, params = {}) {
-  const body = new URLSearchParams({ action, ...params }).toString();
-  const res = await fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body
+// ⚠️  Google Apps Script hairuhusu preflight (OPTIONS) requests.
+//     Suluhisho: tumia GET kwa kila ombi — params zote zinakwenda kwenye URL.
+//     Hii inafanya kazi 100% bila matatizo ya CORS.
+
+async function callAPI(action, params) {
+  const query = new URLSearchParams({ action });
+  if (params) {
+    Object.keys(params).forEach(function(k) {
+      if (params[k] !== undefined && params[k] !== null) {
+        query.append(k, params[k]);
+      }
+    });
+  }
+  const url = SCRIPT_URL + '?' + query.toString();
+  const res = await fetch(url, {
+    method: 'GET',
+    redirect: 'follow'
   });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
 }
 
-async function getData(action) {
-  const res = await fetch(`${SCRIPT_URL}?action=${action}`, { method: 'GET', mode: 'cors' });
-  return res.json();
-}
+// Aliases zinazotumia callAPI moja
+async function postData(action, params) { return callAPI(action, params); }
+async function getData(action)          { return callAPI(action); }
 
 // ─── LOGIN ────────────────────────────────────────────────────────────
 document.getElementById('loginBtn').onclick = async function () {
